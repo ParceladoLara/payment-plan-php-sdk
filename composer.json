@@ -1,0 +1,14 @@
+{
+    "name": "victor/payment-plan-php",
+    "description": "A PHP library for payment plans",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Lara\\PaymentPlan\\": "src/"
+        }
+    },
+    "files": [
+        "src/PaymentPlan.php"
+    ],
+    "require": {}
+}

@@ -1,0 +1,29 @@
+# Composer dependencies
+/vendor/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# PHPStorm and VSCode settings
+.idea/
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
+
+
+# Autoload and cache files
+composer.lock
+
+# User-specific files
+*.swp
+*.swo
+
+# Test output
+*.out
+
+# Ignore test artifacts
+test-results/
+coverage/

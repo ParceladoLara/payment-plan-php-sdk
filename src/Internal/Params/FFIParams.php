@@ -1,0 +1,77 @@
+<?php
+/* src/internal/FFIParams.php */
+
+namespace Lara\PaymentPlan\Internal\Params;
+
+/**
+ * @internal
+ * Internal representation of Params for FFI (matches C struct layout).
+ */
+class FFIParams
+{
+  public float $requested_amount;
+  public int $first_payment_date_ms;
+  public int $disbursement_date_ms;
+  public int $installments;
+  public int $debit_service_percentage;
+  public float $mdr;
+  public float $tac_percentage;
+  public float $iof_overall;
+  public float $iof_percentage;
+  public float $interest_rate;
+  public float $min_installment_amount;
+  public float $max_total_amount;
+  public bool $disbursement_only_on_business_days;
+
+  public function __construct(
+    float $requested_amount,
+    int $first_payment_date_ms,
+    int $disbursement_date_ms,
+    int $installments,
+    int $debit_service_percentage,
+    float $mdr,
+    float $tac_percentage,
+    float $iof_overall,
+    float $iof_percentage,
+    float $interest_rate,
+    float $min_installment_amount,
+    float $max_total_amount,
+    bool $disbursement_only_on_business_days
+  ) {
+    $this->requested_amount = $requested_amount;
+    $this->first_payment_date_ms = $first_payment_date_ms;
+    $this->disbursement_date_ms = $disbursement_date_ms;
+    $this->installments = $installments;
+    $this->debit_service_percentage = $debit_service_percentage;
+    $this->mdr = $mdr;
+    $this->tac_percentage = $tac_percentage;
+    $this->iof_overall = $iof_overall;
+    $this->iof_percentage = $iof_percentage;
+    $this->interest_rate = $interest_rate;
+    $this->min_installment_amount = $min_installment_amount;
+    $this->max_total_amount = $max_total_amount;
+    $this->disbursement_only_on_business_days = $disbursement_only_on_business_days;
+  }
+
+  /**
+   * Create an FFIParams from a public Params object.
+   */
+  public static function fromParams(\Lara\PaymentPlan\Params\Params $params): self
+  {
+    return new self(
+      $params->requested_amount,
+      $params->first_payment_date->getTimestamp() * 1000,
+      $params->disbursement_date->getTimestamp() * 1000,
+      $params->installments,
+      $params->debit_service_percentage,
+      $params->mdr,
+      $params->tac_percentage,
+      $params->iof_overall,
+      $params->iof_percentage,
+      $params->interest_rate,
+      $params->min_installment_amount,
+      $params->max_total_amount,
+      $params->disbursement_only_on_business_days
+    );
+  }
+}
