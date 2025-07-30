@@ -10,8 +10,8 @@ namespace Lara\PaymentPlan\Response;
 class Response
 {
   public int $installment;
-  public int $due_date_ms;
-  public int $disbursement_date_ms;
+  public \DateTimeInterface $due_date;
+  public \DateTimeInterface $disbursement_date;
   public int $accumulated_days;
   public float $days_index;
   public float $accumulated_days_index;

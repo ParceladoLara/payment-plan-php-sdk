@@ -12,5 +12,5 @@ class Invoice
   public int $accumulated_days;
   public float $factor;
   public float $accumulated_factor;
-  public int $due_date_ms;
+  public \DateTimeImmutable $due_date;
 }

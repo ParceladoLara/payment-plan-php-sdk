@@ -36,8 +36,8 @@ class FFIResponseVec
       $response = new Response();
 
       $response->installment = $cResponse->installment;
-      $response->due_date_ms = $cResponse->due_date_ms;
-      $response->disbursement_date_ms = $cResponse->disbursement_date_ms;
+      $response->due_date = new \DateTimeImmutable('@' . $cResponse->due_date_ms / 1000);
+      $response->disbursement_date = new \DateTimeImmutable('@' . $cResponse->disbursement_date_ms / 1000);
       $response->accumulated_days = $cResponse->accumulated_days;
       $response->days_index = $cResponse->days_index;
       $response->accumulated_days_index = $cResponse->accumulated_days_index;
