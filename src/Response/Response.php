@@ -3,10 +3,7 @@
 
 namespace Lara\PaymentPlan\Response;
 
-/**
- * @internal
- * Internal representation of Response_t for FFI.
- */
+
 class Response
 {
   public int $installment;

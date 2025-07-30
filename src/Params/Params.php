@@ -1,5 +1,5 @@
 <?php
-/* src/Params.php */
+/* src/Params/Params.php */
 
 namespace Lara\PaymentPlan\Params;
 

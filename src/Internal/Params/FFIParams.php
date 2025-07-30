@@ -74,4 +74,23 @@ class FFIParams
       $params->disbursement_only_on_business_days
     );
   }
+
+  public function toCData(\FFI\CData $data): \FFI\CData
+  {
+    $data->requested_amount = $this->requested_amount;
+    $data->first_payment_date_ms = $this->first_payment_date_ms;
+    $data->disbursement_date_ms = $this->disbursement_date_ms;
+    $data->installments = $this->installments;
+    $data->debit_service_percentage = $this->debit_service_percentage;
+    $data->mdr = $this->mdr;
+    $data->tac_percentage = $this->tac_percentage;
+    $data->iof_overall = $this->iof_overall;
+    $data->iof_percentage = $this->iof_percentage;
+    $data->interest_rate = $this->interest_rate;
+    $data->min_installment_amount = $this->min_installment_amount;
+    $data->max_total_amount = $this->max_total_amount;
+    $data->disbursement_only_on_business_days = $this->disbursement_only_on_business_days;
+
+    return $data;
+  }
 }

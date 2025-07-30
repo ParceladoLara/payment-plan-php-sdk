@@ -3,10 +3,7 @@
 
 namespace Lara\PaymentPlan\Response;
 
-/**
- * @internal
- * Internal representation of Invoice_t for FFI.
- */
+
 class Invoice
 {
   public int $accumulated_days;

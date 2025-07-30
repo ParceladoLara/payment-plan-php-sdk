@@ -209,4 +209,6 @@ class PaymentPlanTest extends TestCase
     $this->assertEquals($expected3, $result[2]);
     $this->assertEquals($expected4, $result[3]);
   }
+
+  //TODO: Test for calculate down payment
 }

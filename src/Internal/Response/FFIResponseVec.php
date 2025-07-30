@@ -84,4 +84,13 @@ class FFIResponseVec
     }
     return $responses;
   }
+
+  public static function fromCData(\FFI\CData $cData): self
+  {
+    $vec = new self();
+    $vec->ptr = $cData->ptr;
+    $vec->len = $cData->len;
+    $vec->cap = $cData->cap;
+    return $vec;
+  }
 }

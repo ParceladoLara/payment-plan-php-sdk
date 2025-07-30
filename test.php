@@ -2,6 +2,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Lara\PaymentPlan\Params\Params;
+use Lara\PaymentPlan\Params\DownPaymentParams;
 use  Lara\PaymentPlan\PaymentPlan;
 
 
@@ -21,6 +22,19 @@ $params = new Params(
   1000000, // max_total_amount
   true    // disbursement_only_on_business_days
 );
+
+$downPaymentParams = new DownPaymentParams(
+  1000.0, // requested_amount
+  100.0,  // min_installment_amount
+  new DateTimeImmutable('2025-05-03'), // first_payment_date
+  4,       // installments
+  $params
+);
+
+
+$dResult = PaymentPlan::calculateDownPayment($downPaymentParams);
+
+print_r($dResult);
 
 $result = PaymentPlan::calculate($params);
 
