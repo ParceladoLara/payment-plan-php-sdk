@@ -1,7 +1,6 @@
 {
     "name": "parcelado-lara/payment-plan-php",
     "description": "A PHP library for calculating payment plans for Parcelado Lara.",
-    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "keywords": [
