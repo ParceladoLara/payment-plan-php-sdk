@@ -1,7 +1,7 @@
 <?php
 /* src/internal/Response/FFIIntVec.php */
 
-namespace Lara\PaymentPlan\Internal\Response;
+namespace ParceladoLara\PaymentPlan\Internal\Response;
 
 
 /**

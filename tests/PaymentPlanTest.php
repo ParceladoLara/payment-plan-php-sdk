@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
-use Lara\PaymentPlan\Params\Params;
-use Lara\PaymentPlan\Params\DownPaymentParams;
+namespace ParceladoLara\PaymentPlan\Tests;
 
-use Lara\PaymentPlan\PaymentPlan;
-use \Lara\PaymentPlan\Response\Response;
-use \Lara\PaymentPlan\Response\Invoice;
-use \Lara\PaymentPlan\Response\DownPaymentResponse;
+use PHPUnit\Framework\TestCase;
+use ParceladoLara\PaymentPlan\Params\Params;
+use ParceladoLara\PaymentPlan\Params\DownPaymentParams;
+use ParceladoLara\PaymentPlan\PaymentPlan;
+use ParceladoLara\PaymentPlan\Response\Response;
+use ParceladoLara\PaymentPlan\Response\Invoice;
+use ParceladoLara\PaymentPlan\Response\DownPaymentResponse;
+use DateTimeImmutable;
 
 class PaymentPlanTest extends TestCase
 {
@@ -1006,5 +1008,68 @@ class PaymentPlanTest extends TestCase
     $this->assertEquals($expectedDownPayment2, $resp[1]);
     $this->assertEquals($expectedDownPayment3, $resp[2]);
     $this->assertEquals($expectedDownPayment4, $resp[3]);
+  }
+
+
+  public function testDisbursementDateRange()
+  {
+    $range = PaymentPlan::disbursementDateRange(
+      new DateTimeImmutable('2025-04-03'),
+      5
+    );
+
+    $expectedStart = new DateTimeImmutable('2025-04-03 10:00:00');
+    $expectedEnd = new DateTimeImmutable('2025-04-09 10:00:00');
+
+    $this->assertIsArray($range);
+    $this->assertNotEmpty($range);
+    $this->assertCount(2, $range);
+    $this->assertInstanceOf(DateTimeImmutable::class, $range[0]);
+    $this->assertInstanceOf(DateTimeImmutable::class, $range[1]);
+    $this->assertEquals($expectedStart, $range[0]);
+    $this->assertEquals($expectedEnd, $range[1]);
+  }
+
+  public function testNextDisbursementDate()
+  {
+    $nextDate = PaymentPlan::nextDisbursementDate(
+      new DateTimeImmutable('2025-04-03')
+    );
+
+    $expectedDate = new DateTimeImmutable('2025-04-03 10:00:00');
+
+    $this->assertInstanceOf(DateTimeImmutable::class, $nextDate);
+    $this->assertEquals($expectedDate, $nextDate);
+  }
+
+  public function testGetNonBusinessDaysBetween()
+  {
+    $nonBusinessDays = PaymentPlan::getNonBusinessDaysBetween(
+      new DateTimeImmutable('2025-04-01'),
+      new DateTimeImmutable('2025-04-30')
+    );
+
+
+
+    $expectedNonBusinessDays = [
+      new DateTimeImmutable('2025-04-05 10:00:00'),
+      new DateTimeImmutable('2025-04-06 10:00:00'),
+      new DateTimeImmutable('2025-04-12 10:00:00'),
+      new DateTimeImmutable('2025-04-13 10:00:00'),
+      new DateTimeImmutable('2025-04-18 10:00:00'),
+      new DateTimeImmutable('2025-04-19 10:00:00'),
+      new DateTimeImmutable('2025-04-20 10:00:00'),
+      new DateTimeImmutable('2025-04-21 10:00:00'),
+      new DateTimeImmutable('2025-04-26 10:00:00'),
+      new DateTimeImmutable('2025-04-27 10:00:00')
+    ];
+
+    $this->assertIsArray($nonBusinessDays);
+    $this->assertNotEmpty($nonBusinessDays);
+    $this->assertCount(10, $nonBusinessDays);
+    foreach ($nonBusinessDays as $day) {
+      $this->assertInstanceOf(DateTimeImmutable::class, $day);
+    }
+    $this->assertEquals($expectedNonBusinessDays, $nonBusinessDays);
   }
 }

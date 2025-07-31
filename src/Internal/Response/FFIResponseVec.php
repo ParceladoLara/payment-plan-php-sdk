@@ -1,9 +1,9 @@
 <?php
 /* src/internal/Response/FFIResponseVec.php */
 
-namespace Lara\PaymentPlan\Internal\Response;
+namespace ParceladoLara\PaymentPlan\Internal\Response;
 
-use Lara\PaymentPlan\Response\Response;
+use ParceladoLara\PaymentPlan\Response\Response;
 
 /**
  * @internal

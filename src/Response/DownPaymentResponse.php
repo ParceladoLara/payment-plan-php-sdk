@@ -1,7 +1,7 @@
 <?php
 /* src\response\DownPaymentResponse.php */
 
-namespace Lara\PaymentPlan\Response;
+namespace ParceladoLara\PaymentPlan\Response;
 
 use DateTimeImmutable;
 

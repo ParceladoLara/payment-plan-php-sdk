@@ -1,7 +1,7 @@
 <?php
 /* src/internal/FFIParams.php */
 
-namespace Lara\PaymentPlan\Internal\Params;
+namespace ParceladoLara\PaymentPlan\Internal\Params;
 
 /**
  * @internal
@@ -56,7 +56,7 @@ class FFIParams
   /**
    * Create an FFIParams from a public Params object.
    */
-  public static function fromParams(\Lara\PaymentPlan\Params\Params $params): self
+  public static function fromParams(\ParceladoLara\PaymentPlan\Params\Params $params): self
   {
     return new self(
       $params->requestedAmount,

@@ -1,7 +1,7 @@
 <?php
 /* src/internal/Response/FFIInvoice.php */
 
-namespace Lara\PaymentPlan\Internal\Response;
+namespace ParceladoLara\PaymentPlan\Internal\Response;
 
 /**
  * @internal

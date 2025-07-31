@@ -1,7 +1,7 @@
 <?php
 /* src\response\Invoice.php */
 
-namespace Lara\PaymentPlan\Response;
+namespace ParceladoLara\PaymentPlan\Response;
 
 
 class Invoice

@@ -1,7 +1,7 @@
 <?php
 /* src/response/Response.php */
 
-namespace Lara\PaymentPlan\Response;
+namespace ParceladoLara\PaymentPlan\Response;
 
 
 class Response

@@ -1,17 +1,17 @@
 <?php
 /* src/PaymentPlan.php */
 
-namespace Lara\PaymentPlan;
+namespace ParceladoLara\PaymentPlan;
 
-use Lara\PaymentPlan\Internal\FFIPaymentPlan;
-use Lara\PaymentPlan\Internal\Params\FFIParams;
-use Lara\PaymentPlan\Internal\Params\FFIDownPaymentParams;
+use ParceladoLara\PaymentPlan\Internal\FFIPaymentPlan;
+use ParceladoLara\PaymentPlan\Internal\Params\FFIParams;
+use ParceladoLara\PaymentPlan\Internal\Params\FFIDownPaymentParams;
 
-use Lara\PaymentPlan\Params\Params;
-use Lara\PaymentPlan\Params\DownPaymentParams;
+use ParceladoLara\PaymentPlan\Params\Params;
+use ParceladoLara\PaymentPlan\Params\DownPaymentParams;
 
-use Lara\PaymentPlan\Response\Response;
-use Lara\PaymentPlan\Response\DownPaymentResponse;
+use ParceladoLara\PaymentPlan\Response\Response;
+use ParceladoLara\PaymentPlan\Response\DownPaymentResponse;
 
 
 class PaymentPlan
@@ -73,7 +73,7 @@ class PaymentPlan
 
 
     // Convert the result to an array of DateTimeInterface
-    return array_map(fn($timestamp) => (new \DateTime())->setTimestamp($timestamp / 1000), $result);
+    return array_map(fn($timestamp) => (new \DateTimeImmutable('@' . ($timestamp / 1000))), $result);
   }
 
   /**
@@ -90,7 +90,7 @@ class PaymentPlan
   {
     $baseTimestamp = $baseDate->getTimestamp() * 1000; // Convert to milliseconds for FFI
     $result = FFIPaymentPlan::nextDisbursementDate($baseTimestamp);
-    return (new \DateTime())->setTimestamp($result / 1000);
+    return (new \DateTimeImmutable('@' . ($result / 1000))); // Convert back to DateTimeImmutable
   }
 
   /**

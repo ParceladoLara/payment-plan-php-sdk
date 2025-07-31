@@ -1,0 +1,39 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.php text eol=lf
+
+# Header files
+*.h text eol=lf
+
+# Configuration files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+composer.json text eol=lf
+composer.lock text eol=lf
+
+# Binary files - ensure they are not treated as text
+*.so binary
+*.dll binary
+*.dylib binary
+
+
+# Exclude files from export-ignore (not included in git archive/export)
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore
+tests/ export-ignore
+phpunit.xml export-ignore
+*.md export-ignore
+
+# Mark native libraries as important binary files
+src/Internal/native/*.so binary
+src/Internal/native/*.dll binary
+src/Internal/native/*.dylib binary
+
+# Linguist settings for GitHub language detection
+*.h linguist-language=C
+*.so linguist-generated=true
+*.dll linguist-generated=true
+*.dylib linguist-generated=true

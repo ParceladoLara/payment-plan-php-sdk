@@ -1,9 +1,9 @@
 <?php
 /* src/internal/Response/FFIDownPaymentResponse.php */
 
-namespace Lara\PaymentPlan\Internal\Response;
+namespace ParceladoLara\PaymentPlan\Internal\Response;
 
-use Lara\PaymentPlan\Response\DownPaymentResponse;
+use ParceladoLara\PaymentPlan\Response\DownPaymentResponse;
 
 /**
  * @internal

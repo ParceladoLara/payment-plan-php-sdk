@@ -1,7 +1,7 @@
 <?php
 /* src/Params/DownPaymentParams.php */
 
-namespace Lara\PaymentPlan\Params;
+namespace ParceladoLara\PaymentPlan\Params;
 
 
 class DownPaymentParams

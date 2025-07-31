@@ -1,15 +1,15 @@
 <?php
 /* src/internal/FFIPaymentPlan.php */
 
-namespace Lara\PaymentPlan\Internal;
+namespace ParceladoLara\PaymentPlan\Internal;
 
 
-use Lara\PaymentPlan\Internal\Response\FFIResponseVec;
-use Lara\PaymentPlan\Internal\Params\FFIParams;
-use Lara\PaymentPlan\Internal\Params\FFIDownPaymentParams;
-use Lara\PaymentPlan\Internal\Response\FFIDownPaymentResponseVec;
-use Lara\PaymentPlan\Internal\Response\FFIIntArray;
-use Lara\PaymentPlan\Internal\Response\FFIIntVec;
+use ParceladoLara\PaymentPlan\Internal\Response\FFIResponseVec;
+use ParceladoLara\PaymentPlan\Internal\Params\FFIParams;
+use ParceladoLara\PaymentPlan\Internal\Params\FFIDownPaymentParams;
+use ParceladoLara\PaymentPlan\Internal\Response\FFIDownPaymentResponseVec;
+use ParceladoLara\PaymentPlan\Internal\Response\FFIIntArray;
+use ParceladoLara\PaymentPlan\Internal\Response\FFIIntVec;
 
 /**
  * @internal
@@ -65,7 +65,7 @@ class FFIPaymentPlan
    * Calculates the payment plan using FFI.
    *
    * @param FFIParams $params
-   * @return \Lara\PaymentPlan\Response\Response[]
+   * @return \ParceladoLara\PaymentPlan\Response\Response[]
    *
    * @throws \RuntimeException if the FFI call fails.
    * @throws \RuntimeException if the shared library or header file is missing.
@@ -113,7 +113,7 @@ class FFIPaymentPlan
    * Calculates the  down payment plan using FFI with Params object.
    *
    * @param FFIDownPaymentParams $params
-   * @return \Lara\PaymentPlan\Response\DownPaymentResponse[]
+   * @return \ParceladoLara\PaymentPlan\Response\DownPaymentResponse[]
    *
    * @throws \RuntimeException if the FFI call fails.
    * @throws \RuntimeException if the shared library or header file is missing.

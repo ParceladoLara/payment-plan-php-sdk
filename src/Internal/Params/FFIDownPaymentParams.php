@@ -1,7 +1,7 @@
 <?php
 /* src/internal/FFIDownPaymentParams.php */
 
-namespace Lara\PaymentPlan\Internal\Params;
+namespace ParceladoLara\PaymentPlan\Internal\Params;
 
 /**
  * @internal
@@ -32,7 +32,7 @@ class FFIDownPaymentParams
   /**
    * Create an FFIDownPaymentParams from a public DownPaymentParams object.
    */
-  public static function fromParams(\Lara\PaymentPlan\Params\DownPaymentParams $params): self
+  public static function fromParams(\ParceladoLara\PaymentPlan\Params\DownPaymentParams $params): self
   {
     return new self(
       $params->requestedAmount,
