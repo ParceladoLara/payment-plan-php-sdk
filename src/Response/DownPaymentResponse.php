@@ -7,10 +7,10 @@ use DateTimeImmutable;
 
 class DownPaymentResponse
 {
-  public float $installment_amount;
-  public float $total_amount;
-  public int $installment_quantity;
-  public DateTimeImmutable $first_payment_date;
+  public float $installmentAmount;
+  public float $totalAmount;
+  public int $installmentQuantity;
+  public DateTimeImmutable $firstPaymentDate;
   /**
    * @var Response[]
    */

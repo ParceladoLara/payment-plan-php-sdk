@@ -35,9 +35,9 @@ class FFIDownPaymentParams
   public static function fromParams(\Lara\PaymentPlan\Params\DownPaymentParams $params): self
   {
     return new self(
-      $params->requested_amount,
-      $params->min_installment_amount,
-      $params->first_payment_date->getTimestamp() * 1000, // Convert to milliseconds
+      $params->requestedAmount,
+      $params->minInstallmentAmount,
+      $params->firstPaymentDate->getTimestamp() * 1000, // Convert to milliseconds
       $params->installments,
       FFIParams::fromParams($params->params)
     );

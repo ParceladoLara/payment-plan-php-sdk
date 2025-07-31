@@ -6,8 +6,8 @@ namespace Lara\PaymentPlan\Response;
 
 class Invoice
 {
-  public int $accumulated_days;
+  public int $accumulatedDays;
   public float $factor;
-  public float $accumulated_factor;
-  public \DateTimeImmutable $due_date;
+  public float $accumulatedFactor;
+  public \DateTimeImmutable $dueDate;
 }

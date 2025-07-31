@@ -35,10 +35,10 @@ class FFIDownPaymentResponseVec
       $cResponse = $this->ptr[$i];
       $response = new DownPaymentResponse();
 
-      $response->installment_amount = $cResponse->installment_amount;
-      $response->total_amount = $cResponse->total_amount;
-      $response->installment_quantity = $cResponse->installment_quantity;
-      $response->first_payment_date = new \DateTimeImmutable('@' . $cResponse->first_payment_date_ms / 1000);
+      $response->installmentAmount = $cResponse->installment_amount;
+      $response->totalAmount = $cResponse->total_amount;
+      $response->installmentQuantity = $cResponse->installment_quantity;
+      $response->firstPaymentDate = new \DateTimeImmutable('@' . $cResponse->first_payment_date_ms / 1000);
 
       if ($cResponse->plans !== null) {
         $plans = $cResponse->plans;

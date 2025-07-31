@@ -31,10 +31,10 @@ class FFIInvoiceVec
     for ($i = 0; $i < $this->len; $i++) {
       $cInvoice = $this->ptr[$i];
       $invoice = new Invoice();
-      $invoice->accumulated_days = $cInvoice->accumulated_days;
+      $invoice->accumulatedDays = $cInvoice->accumulated_days;
       $invoice->factor = $cInvoice->factor;
-      $invoice->accumulated_factor = $cInvoice->accumulated_factor;
-      $invoice->due_date = new \DateTimeImmutable('@' . $cInvoice->due_date_ms / 1000);
+      $invoice->accumulatedFactor = $cInvoice->accumulated_factor;
+      $invoice->dueDate = new \DateTimeImmutable('@' . $cInvoice->due_date_ms / 1000);
       $invoices[] = $invoice;
     }
     return $invoices;

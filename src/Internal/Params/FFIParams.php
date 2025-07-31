@@ -59,19 +59,19 @@ class FFIParams
   public static function fromParams(\Lara\PaymentPlan\Params\Params $params): self
   {
     return new self(
-      $params->requested_amount,
-      $params->first_payment_date->getTimestamp() * 1000,
-      $params->disbursement_date->getTimestamp() * 1000,
+      $params->requestedAmount,
+      $params->firstPaymentDate->getTimestamp() * 1000,
+      $params->disbursementDate->getTimestamp() * 1000,
       $params->installments,
-      $params->debit_service_percentage,
+      $params->debitServicePercentage,
       $params->mdr,
-      $params->tac_percentage,
-      $params->iof_overall,
-      $params->iof_percentage,
-      $params->interest_rate,
-      $params->min_installment_amount,
-      $params->max_total_amount,
-      $params->disbursement_only_on_business_days
+      $params->tacPercentage,
+      $params->iofOverall,
+      $params->iofPercentage,
+      $params->interestRate,
+      $params->minInstallmentAmount,
+      $params->maxTotalAmount,
+      $params->disbursementOnlyOnBusinessDays
     );
   }
 
