@@ -56,3 +56,10 @@ $nextDisbursementDate = PaymentPlan::nextDisbursementDate(
 );
 
 print_r($nextDisbursementDate);
+
+$nonBusinessDays = PaymentPlan::getNonBusinessDaysBetween(
+  new DateTimeImmutable('2025-04-01'),
+  new DateTimeImmutable('2025-04-30')
+);
+
+print_r($nonBusinessDays);

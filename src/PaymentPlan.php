@@ -76,10 +76,43 @@ class PaymentPlan
     return array_map(fn($timestamp) => (new \DateTime())->setTimestamp($timestamp / 1000), $result);
   }
 
+  /**
+   * Retrieves the next disbursement date using FFI.
+   *
+   * @param DateTimeInterface $baseDate The base date to calculate the next disbursement date from.
+   * @return DateTimeInterface The next disbursement date.
+   *
+   * @throws \RuntimeException if the FFI call fails.
+   * @throws \RuntimeException if the shared library or header file is missing.
+   * @throws \RuntimeException if the OS is unsupported.
+   */
   public static function nextDisbursementDate(\DateTimeInterface $baseDate): \DateTimeInterface
   {
     $baseTimestamp = $baseDate->getTimestamp() * 1000; // Convert to milliseconds for FFI
     $result = FFIPaymentPlan::nextDisbursementDate($baseTimestamp);
     return (new \DateTime())->setTimestamp($result / 1000);
+  }
+
+  /**
+   * Retrieves the non-business days between two dates using FFI.
+   *
+   * @param \DateTimeInterface $start Start date.
+   * @param \DateTimeInterface $end End date.
+   * @return \DateTimeImmutable[] Array of non-business days.
+   *
+   * @throws \RuntimeException if the FFI call fails.
+   * @throws \RuntimeException if the shared library or header file is missing.
+   * @throws \RuntimeException if the OS is unsupported.
+   */
+  public static function getNonBusinessDaysBetween(
+    \DateTimeInterface $start,
+    \DateTimeInterface $end
+  ): array {
+    // Convert DateTimeInterface to Unix timestamp
+    $startTimestamp = $start->getTimestamp() * 1000; // Convert to milliseconds for FFI
+    $endTimestamp = $end->getTimestamp() * 1000; // Convert to milliseconds for FFI
+
+    // Call the FFI method to get the non-business days
+    return FFIPaymentPlan::getNonBusinessDaysBetween($startTimestamp, $endTimestamp);
   }
 }

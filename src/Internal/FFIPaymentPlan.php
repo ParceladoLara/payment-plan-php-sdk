@@ -9,6 +9,7 @@ use Lara\PaymentPlan\Internal\Params\FFIParams;
 use Lara\PaymentPlan\Internal\Params\FFIDownPaymentParams;
 use Lara\PaymentPlan\Internal\Response\FFIDownPaymentResponseVec;
 use Lara\PaymentPlan\Internal\Response\FFIIntArray;
+use Lara\PaymentPlan\Internal\Response\FFIIntVec;
 
 /**
  * @internal
@@ -194,6 +195,15 @@ class FFIPaymentPlan
   }
 
 
+  /**
+   * Retrieves the next disbursement date using FFI.
+   * @param int $baseDate Base date in Unix timestamp format.
+   * @return int Next disbursement date in Unix timestamp format.
+   *
+   * @throws \RuntimeException if the FFI call fails.
+   * @throws \RuntimeException if the shared library or header file is missing.
+   * @throws \RuntimeException if the OS is unsupported.
+   */
   public static function nextDisbursementDate(int $baseDate): int
   {
     $ffi = self::getFFI();
@@ -207,5 +217,47 @@ class FFIPaymentPlan
 
 
     return $result->cdata;
+  }
+
+
+  /**
+   * Retrieves the non-business days between two dates using FFI.
+   *
+   * @param int $startDate Start date in Unix timestamp format.
+   * @param int $endDate End date in Unix timestamp format.
+   * @return \DateTimeImmutable[] Array of non-business days in Unix timestamp format.
+   *
+   * @throws \RuntimeException if the FFI call fails.
+   * @throws \RuntimeException if the shared library or header file is missing.
+   * @throws \RuntimeException if the OS is unsupported.
+   */
+  public static function getNonBusinessDaysBetween(int $startDate, int $endDate): array
+  {
+    $ffi = self::getFFI();
+
+    $cResult = $ffi->new('Vec_int64_t');
+    $result = $ffi->get_non_business_days_between($startDate, $endDate, \FFI::addr($cResult));
+
+    if ($result !== 0) {
+      throw new \RuntimeException("FFI get_non_business_days_between failed with code $result");
+    }
+
+    // Convert the C data to a PHP representation
+    $ffiIntVec = new FFIIntVec();
+    $ffiIntVec->ptr = $cResult->ptr;
+    $ffiIntVec->len = $cResult->len;
+    $ffiIntVec->cap = $cResult->cap;
+
+    $arr = [];
+    // Convert the FFIIntVec to a PHP array
+    try {
+      $arr = $ffiIntVec->toDateTimeArray();
+    } finally {
+      // Free the allocated memory for the response vector
+      // This is important to avoid memory leaks in FFI
+      //$ffi->free_i64_vec($cResult);
+    }
+
+    return $arr;
   }
 }
