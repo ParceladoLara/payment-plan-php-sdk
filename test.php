@@ -39,3 +39,14 @@ print_r($dResult);
 $result = PaymentPlan::calculate($params);
 
 print_r($result);
+
+/*
+	baseDate := time.Date(2025, 4, 3, 0, 0, 0, 0, time.UTC)
+	days := uint32(5)
+  */
+$disDateRange = PaymentPlan::disbursementDateRange(
+  new DateTimeImmutable('2025-04-03'),
+  5
+);
+
+print_r($disDateRange);

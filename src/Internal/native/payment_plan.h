@@ -7,6 +7,9 @@
  *                                         *
  *******************************************/
 
+#ifndef __RUST_PAYMENT_PLAN_C_BIND__
+#define __RUST_PAYMENT_PLAN_C_BIND__
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -280,22 +283,91 @@ typedef uint8_t
 #endif
     PaymentPlanResult_t;
 
-/** <No documentation available> */
+/** \brief
+ *  Calculate the down payment plan.
+ *  the pointer on `Vec_DownPaymentResponse_t` must be null because the function will allocate the vector
+ *
+ *  # Safety: The caller must free the vector using `free_down_payment_response_vec`.
+ */
 PaymentPlanResult_t
 calculate_down_payment_plan(
     DownPaymentParams_t params,
     Vec_DownPaymentResponse_t *out_responses);
 
-/** <No documentation available> */
+/** \brief
+ *  Calculate the payment plan.
+ *  the pointer on `Vec_Response_t` must be null because the function will allocate the vector
+ *
+ *  # Safety: The caller must free the vector using `free_response_vec`.
+ */
 PaymentPlanResult_t
 calculate_payment_plan(
     Params_t params,
     Vec_Response_t *out_responses);
 
-/** <No documentation available> */
+typedef struct
+{
+    int64_t idx[2];
+} int64_2_array_t;
+
+/** \brief
+ *  Calculate the disbursement date range.
+ */
+PaymentPlanResult_t
+disbursement_date_range(
+    int64_t base_date,
+    uint32_t days,
+    int64_2_array_t *result);
+
+/** \brief
+ *  Free the down payment response vector allocated by the FFI functions.
+ */
 void free_down_payment_response_vec(
     Vec_DownPaymentResponse_t value);
 
-/** <No documentation available> */
+/** \brief
+ *  Same as [`Vec<T>`][`rust::Vec`], but with guaranteed `#[repr(C)]` layout
+ */
+typedef struct Vec_int64
+{
+    /** <No documentation available> */
+    int64_t *ptr;
+
+    /** <No documentation available> */
+    size_t len;
+
+    /** <No documentation available> */
+    size_t cap;
+} Vec_int64_t;
+
+/** \brief
+ *  Free the i64 vector allocated by the FFI functions.
+ */
+void free_i64_vec(
+    Vec_int64_t value);
+
+/** \brief
+ *  Free the response vector allocated by the FFI functions.
+ */
 void free_response_vec(
     Vec_Response_t value);
+
+/** \brief
+ *  Get non-business days between two dates.
+ *  the pointer on `Vec<i64>` must be null because the function will allocate the vector
+ *
+ *  # Safety: The caller must free the vector using `free_i64_vec`.
+ */
+PaymentPlanResult_t
+get_non_business_days_between(
+    int64_t start_date,
+    int64_t end_date,
+    Vec_int64_t *result);
+
+/** <No documentation available> */
+PaymentPlanResult_t
+next_disbursement_date(
+    int64_t base_date,
+    int64_t *result);
+
+#endif /* __RUST_PAYMENT_PLAN_C_BIND__ */

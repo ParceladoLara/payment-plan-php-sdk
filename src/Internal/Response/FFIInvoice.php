@@ -1,5 +1,5 @@
 <?php
-/* src/internal/FFIInvoice.php */
+/* src/internal/Response/FFIInvoice.php */
 
 namespace Lara\PaymentPlan\Internal\Response;
 

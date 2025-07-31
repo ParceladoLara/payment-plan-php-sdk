@@ -3,10 +3,12 @@
 
 namespace Lara\PaymentPlan\Internal;
 
+
 use Lara\PaymentPlan\Internal\Response\FFIResponseVec;
 use Lara\PaymentPlan\Internal\Params\FFIParams;
 use Lara\PaymentPlan\Internal\Params\FFIDownPaymentParams;
 use Lara\PaymentPlan\Internal\Response\FFIDownPaymentResponseVec;
+use Lara\PaymentPlan\Internal\Response\FFIIntArray;
 
 /**
  * @internal
@@ -151,6 +153,43 @@ class FFIPaymentPlan
       $ffi->free_down_payment_response_vec($cVecResponse);
     }
 
+    return $arr;
+  }
+
+  /**
+   * Retrieves the disbursement date range using FFI.
+   *
+   * @param int $start Start date in Unix timestamp format.
+   * @param int $days the number of days for the range.
+   * @return int[] Array of disbursement dates in Unix timestamp format.
+   *
+   * @throws \RuntimeException if the FFI call fails.
+   * @throws \RuntimeException if the shared library or header file is missing.
+   * @throws \RuntimeException if the OS is unsupported.
+   */
+  public static function disbursementDateRange(int $start, int $days): array
+  {
+    $ffi = self::getFFI();
+
+    $cResult = $ffi->new('int64_2_array_t');
+    $result = $ffi->disbursement_date_range($start, $days, \FFI::addr($cResult));
+
+    if ($result !== 0) {
+      throw new \RuntimeException("FFI disbursement_date_range failed with code $result");
+    }
+
+    // Convert the C data to a PHP representation
+    $ffiIntArray = new FFIIntArray();
+    $ffiIntArray->ptr = $cResult->idx;
+
+    $arr = [];
+    // Convert the FFIIntArray to a PHP array
+    try {
+      $arr = $ffiIntArray->toArray();
+    } finally {
+      //We don't need to free cResult as it's a simple struct
+      //FFI does not require manual memory management for simple structs
+    }
     return $arr;
   }
 }

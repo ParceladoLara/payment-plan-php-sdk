@@ -46,4 +46,33 @@ class PaymentPlan
     $ffiParams = FFIDownPaymentParams::fromParams($params);
     return FFIPaymentPlan::calculateDownPaymentPlan($ffiParams);
   }
+
+
+  /**
+   * Retrieves the disbursement date range using FFI.
+   *
+   * @param DateTimeInterface $start Start date in Unix timestamp format.
+   * @param int $days the number of days for the range.
+   * @return DateTimeInterface[] Array of disbursement dates in Unix timestamp format.
+   *
+   * @throws \InvalidArgumentException if the days parameter is not positive.
+   * @throws \RuntimeException if the FFI call fails.
+   * @throws \RuntimeException if the shared library or header file is missing.
+   * @throws \RuntimeException if the OS is unsupported.
+   */
+  public static function disbursementDateRange(\DateTimeInterface $start, int $days): array
+  {
+    if ($days <= 0) {
+      throw new \InvalidArgumentException("Days must be a positive integer");
+    }
+    // Convert DateTimeInterface to Unix timestamp
+    $startTimestamp = $start->getTimestamp() * 1000; // Convert to milliseconds for FFI
+
+    // Call the FFI method to get the disbursement date range
+    $result = FFIPaymentPlan::disbursementDateRange($startTimestamp, $days);
+
+
+    // Convert the result to an array of DateTimeInterface
+    return array_map(fn($timestamp) => (new \DateTime())->setTimestamp($timestamp / 1000), $result);
+  }
 }
