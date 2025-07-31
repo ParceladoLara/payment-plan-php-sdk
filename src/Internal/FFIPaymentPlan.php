@@ -255,7 +255,7 @@ class FFIPaymentPlan
     } finally {
       // Free the allocated memory for the response vector
       // This is important to avoid memory leaks in FFI
-      //$ffi->free_i64_vec($cResult);
+      $ffi->free_i64_vec($cResult);
     }
 
     return $arr;
