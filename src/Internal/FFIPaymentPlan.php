@@ -192,4 +192,20 @@ class FFIPaymentPlan
     }
     return $arr;
   }
+
+
+  public static function nextDisbursementDate(int $baseDate): int
+  {
+    $ffi = self::getFFI();
+
+    $result = $ffi->new('int64_t');
+    $status = $ffi->next_disbursement_date($baseDate, \FFI::addr($result));
+
+    if ($status !== 0) {
+      throw new \RuntimeException("FFI next_disbursement_date failed with code $status");
+    }
+
+
+    return $result->cdata;
+  }
 }

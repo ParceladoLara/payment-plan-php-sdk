@@ -75,4 +75,11 @@ class PaymentPlan
     // Convert the result to an array of DateTimeInterface
     return array_map(fn($timestamp) => (new \DateTime())->setTimestamp($timestamp / 1000), $result);
   }
+
+  public static function nextDisbursementDate(\DateTimeInterface $baseDate): \DateTimeInterface
+  {
+    $baseTimestamp = $baseDate->getTimestamp() * 1000; // Convert to milliseconds for FFI
+    $result = FFIPaymentPlan::nextDisbursementDate($baseTimestamp);
+    return (new \DateTime())->setTimestamp($result / 1000);
+  }
 }

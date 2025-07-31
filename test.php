@@ -50,3 +50,9 @@ $disDateRange = PaymentPlan::disbursementDateRange(
 );
 
 print_r($disDateRange);
+
+$nextDisbursementDate = PaymentPlan::nextDisbursementDate(
+  new DateTimeImmutable('2025-04-03')
+);
+
+print_r($nextDisbursementDate);
