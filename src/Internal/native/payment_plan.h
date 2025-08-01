@@ -10,14 +10,15 @@
 #ifndef __RUST_PAYMENT_PLAN_C_BIND__
 #define __RUST_PAYMENT_PLAN_C_BIND__
 
+
 #include <stddef.h>
 #include <stdint.h>
+
 
 #include <stdbool.h>
 
 /** <No documentation available> */
-typedef struct Params
-{
+typedef struct Params {
     /** <No documentation available> */
     double requested_amount;
 
@@ -59,8 +60,7 @@ typedef struct Params
 } Params_t;
 
 /** <No documentation available> */
-typedef struct DownPaymentParams
-{
+typedef struct DownPaymentParams {
     /** <No documentation available> */
     Params_t params;
 
@@ -78,8 +78,7 @@ typedef struct DownPaymentParams
 } DownPaymentParams_t;
 
 /** <No documentation available> */
-typedef struct Invoice
-{
+typedef struct Invoice {
     /** <No documentation available> */
     int64_t accumulated_days;
 
@@ -96,10 +95,9 @@ typedef struct Invoice
 /** \brief
  *  Same as [`Vec<T>`][`rust::Vec`], but with guaranteed `#[repr(C)]` layout
  */
-typedef struct Vec_Invoice
-{
+typedef struct Vec_Invoice {
     /** <No documentation available> */
-    Invoice_t *ptr;
+    Invoice_t * ptr;
 
     /** <No documentation available> */
     size_t len;
@@ -109,8 +107,7 @@ typedef struct Vec_Invoice
 } Vec_Invoice_t;
 
 /** <No documentation available> */
-typedef struct Response
-{
+typedef struct Response {
     /** <No documentation available> */
     uint32_t installment;
 
@@ -217,10 +214,9 @@ typedef struct Response
 /** \brief
  *  Same as [`Vec<T>`][`rust::Vec`], but with guaranteed `#[repr(C)]` layout
  */
-typedef struct Vec_Response
-{
+typedef struct Vec_Response {
     /** <No documentation available> */
-    Response_t *ptr;
+    Response_t * ptr;
 
     /** <No documentation available> */
     size_t len;
@@ -230,8 +226,7 @@ typedef struct Vec_Response
 } Vec_Response_t;
 
 /** <No documentation available> */
-typedef struct DownPaymentResponse
-{
+typedef struct DownPaymentResponse {
     /** <No documentation available> */
     double installment_amount;
 
@@ -251,10 +246,9 @@ typedef struct DownPaymentResponse
 /** \brief
  *  Same as [`Vec<T>`][`rust::Vec`], but with guaranteed `#[repr(C)]` layout
  */
-typedef struct Vec_DownPaymentResponse
-{
+typedef struct Vec_DownPaymentResponse {
     /** <No documentation available> */
-    DownPaymentResponse_t *ptr;
+    DownPaymentResponse_t * ptr;
 
     /** <No documentation available> */
     size_t len;
@@ -268,8 +262,7 @@ typedef struct Vec_DownPaymentResponse
 #ifdef DOXYGEN
 typedef
 #endif
-    enum PaymentPlanResult
-{
+enum PaymentPlanResult {
     /** <No documentation available> */
     PAYMENT_PLAN_RESULT_SUCCESS = 0,
     /** <No documentation available> */
@@ -278,10 +271,9 @@ typedef
     PAYMENT_PLAN_RESULT_CALCULATION_ERROR = 2,
 }
 #ifndef DOXYGEN
-;
-typedef uint8_t
+; typedef uint8_t
 #endif
-    PaymentPlanResult_t;
+PaymentPlanResult_t;
 
 /** \brief
  *  Calculate the down payment plan.
@@ -290,9 +282,9 @@ typedef uint8_t
  *  # Safety: The caller must free the vector using `free_down_payment_response_vec`.
  */
 PaymentPlanResult_t
-calculate_down_payment_plan(
+calculate_down_payment_plan (
     DownPaymentParams_t params,
-    Vec_DownPaymentResponse_t *out_responses);
+    Vec_DownPaymentResponse_t * out_responses);
 
 /** \brief
  *  Calculate the payment plan.
@@ -301,12 +293,11 @@ calculate_down_payment_plan(
  *  # Safety: The caller must free the vector using `free_response_vec`.
  */
 PaymentPlanResult_t
-calculate_payment_plan(
+calculate_payment_plan (
     Params_t params,
-    Vec_Response_t *out_responses);
+    Vec_Response_t * out_responses);
 
-typedef struct
-{
+typedef struct {
     int64_t idx[2];
 } int64_2_array_t;
 
@@ -314,24 +305,24 @@ typedef struct
  *  Calculate the disbursement date range.
  */
 PaymentPlanResult_t
-disbursement_date_range(
+disbursement_date_range (
     int64_t base_date,
     uint32_t days,
-    int64_2_array_t *result);
+    int64_2_array_t * result);
 
 /** \brief
  *  Free the down payment response vector allocated by the FFI functions.
  */
-void free_down_payment_response_vec(
+void
+free_down_payment_response_vec (
     Vec_DownPaymentResponse_t value);
 
 /** \brief
  *  Same as [`Vec<T>`][`rust::Vec`], but with guaranteed `#[repr(C)]` layout
  */
-typedef struct Vec_int64
-{
+typedef struct Vec_int64 {
     /** <No documentation available> */
-    int64_t *ptr;
+    int64_t * ptr;
 
     /** <No documentation available> */
     size_t len;
@@ -343,13 +334,15 @@ typedef struct Vec_int64
 /** \brief
  *  Free the i64 vector allocated by the FFI functions.
  */
-void free_i64_vec(
+void
+free_i64_vec (
     Vec_int64_t value);
 
 /** \brief
  *  Free the response vector allocated by the FFI functions.
  */
-void free_response_vec(
+void
+free_response_vec (
     Vec_Response_t value);
 
 /** \brief
@@ -359,15 +352,17 @@ void free_response_vec(
  *  # Safety: The caller must free the vector using `free_i64_vec`.
  */
 PaymentPlanResult_t
-get_non_business_days_between(
+get_non_business_days_between (
     int64_t start_date,
     int64_t end_date,
-    Vec_int64_t *result);
+    Vec_int64_t * result);
 
 /** <No documentation available> */
 PaymentPlanResult_t
-next_disbursement_date(
+next_disbursement_date (
     int64_t base_date,
-    int64_t *result);
+    int64_t * result);
+
+
 
 #endif /* __RUST_PAYMENT_PLAN_C_BIND__ */
